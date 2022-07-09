@@ -1,5 +1,4 @@
 import { AppBar, Box, Chip, Container, Grid, Link, Toolbar } from '@mui/material';
-import logo from '../public/logo.svg'
 import FaceIcon from '@mui/icons-material/Face';
 
 function Header() {
@@ -7,7 +6,7 @@ function Header() {
         <AppBar position="static">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <img src={logo} alt="Parcel2Go.com" height={60} width={240}  />
+                    <img src="/logo.svg" alt="Parcel2Go.com" height={60} width={240}  />
                     <Box style={{ flexGrow: 1 }} />
                     <Box>
                         <Grid container spacing={3} alignItems="center">
