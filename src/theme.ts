@@ -1,9 +1,12 @@
 import { createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
-  palette : {
-    background : {
-      default : "#F5F5F5"
+  palette: {
+    background: {
+      default: "#F5F5F5"
+    },
+    primary: {
+      main: "#027800"
     }
   },
   typography: {
@@ -17,7 +20,7 @@ const theme = createTheme({
     subtitle1: {
       fontSize: "2rem",
       fontWeight: 600,
-      lineHeight : "2.5rem"
+      lineHeight: "2.5rem"
     },
     fontFamily: [
       'Plus Jakarta Sans',
@@ -31,7 +34,7 @@ const theme = createTheme({
           backgroundColor: "white",
           boxShadow: "none",
           borderBottom: "solid 1px #EBEBEB",
-          marginBottom : 40
+          marginBottom: 40
         }
       }
     },
@@ -41,6 +44,13 @@ const theme = createTheme({
           fontWeight: 600,
           textDecoration: "none",
           fontSize: "0.9em"
+        }
+      }
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          
         }
       }
     }
