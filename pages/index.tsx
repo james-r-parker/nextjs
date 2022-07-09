@@ -1,13 +1,65 @@
-import { Box, Container, Grid, Typography } from '@mui/material';
-import type { NextPage } from 'next'
+import { Box, Container, Grid, Paper, Typography, Link } from '@mui/material';
+import type { GetStaticPropsResult } from 'next'
+import { request, gql } from 'graphql-request';
 import QuickQuote from '../src/quick-quote';
 
-const Home: NextPage = () => {
+interface ICardProps {
+  title: string,
+  description: string,
+  image: string,
+  link: string,
+  linkText: string
+  backgroundColour?: string,
+  colour?: string
+}
+
+const Card: React.FC<ICardProps> = (props) => {
+  return (
+    <Paper style={{ backgroundColor: props.backgroundColour }}>
+      <Box p={3}>
+        <Typography variant='subtitle1' style={{ color: props.colour, minHeight: "75px" }} mb={2}>{props.title}</Typography>
+        <Typography style={{ color: props.colour, minHeight: "50px" }}>{props.description}</Typography>
+        <img src={props.image} style={{ margin: "20px auto", display: "block", height: "100px" }} />
+        <Link href={props.link} style={{ color: props.colour }}>{props.linkText}</Link>
+      </Box>
+    </Paper>
+  )
+}
+
+interface ITileProp {
+  title: string,
+  image: string,
+  description: string,
+  link: string
+}
+
+const Tile: React.FC<ITileProp> = (props) => {
+  return (
+    <Paper style={{ background: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('${props.image}')`, backgroundSize: "cover" }}>
+      <Box p={4}>
+        <Typography variant='subtitle1' style={{ color: "#fff" }} mb={2}>{props.title}</Typography>
+        <Typography style={{ color: "#fff" }}>{props.description}</Typography>
+        <Link href={props.link} style={{ color: "#fff" }}>Read more</Link>
+      </Box>
+    </Paper>
+  )
+}
+
+interface HomePageProps {
+  tiles: {
+    title: string,
+    image: string,
+    description: string,
+    link: string
+  }[]
+}
+
+const Home: React.FC<HomePageProps> = ({ tiles }) => {
   return (
     <Box>
       <Grid container direction={'column'} spacing={2}>
         <Grid item>
-          <Box sx={{ backgroundColor: "#fff" }}>
+          <Box sx={{ backgroundColor: "#fff" }} pb={8}>
             <Container maxWidth={'xl'}>
               <Grid container direction={'column'} spacing={5}>
                 <Grid item>
@@ -25,11 +77,102 @@ const Home: NextPage = () => {
         </Grid>
         <Grid item>
           <Container maxWidth={'xl'}>
+            <Grid container direction={'column'} spacing={4}>
+              <Grid item>
+                <Typography sx={{ marginTop: "20px" }} variant='h2'>Comparing prices from the UK's most trusted parcel couriers</Typography>
+              </Grid>
+              <Grid item>
+                <Grid container spacing={3}>
+                  {['dhl', 'dpd', 'evri', 'inpost', 'parcelforce'].map((c) => {
+                    return (
+                      <Grid item key={c}>
+                        <Paper>
+                          <Box p={3}>
+                            <img src={`/${c}.svg`} alt={c} height={60} />
+                          </Box>
+                        </Paper>
+                      </Grid>
+                    )
+                  })}
+                </Grid>
+              </Grid>
+              <Grid item>
+                <Grid container spacing={3}>
+                  <Grid item md={4}>
+                    <Card
+                      title="We're rated 4 out of 5 on Trustpilot"
+                      description="Based on over 100,000 independant and verified reviews."
+                      link=''
+                      linkText='Read reviews on Trustpilot'
+                      backgroundColour='#000032'
+                      colour='#fff'
+                      image='/trustpilot.png'
+                    />
+                  </Grid>
+                  <Grid item md={4}>
+                    <Card
+                      title="We're proud to be an official Google Partner"
+                      description="We've been a Google Partner for over 10 years."
+                      link=''
+                      linkText='What does this mean'
+                      backgroundColour='#E2EEF6'
+                      image='/google-partner.png'
+                    />
+                  </Grid>
+                  <Grid item md={4}>
+                    <Card
+                      title='Already have an account'
+                      description='Signing in makes life a lot easier for you while using our services.'
+                      link='https://www.parcel2go.com/login'
+                      linkText='Sign in to your account'
+                      backgroundColour='#fff'
+                      image=''
+                    />
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid item>
+                <Typography sx={{ marginTop: "20px" }} variant='h2'>Delivering more than just parcels</Typography>
+              </Grid>
+              <Grid item>
+                <Grid container spacing={2}>
+                  {tiles.map((t) => {
+                    return (
+                      <Grid item key={t.title} xs={6} flexGrow={1}>
+                        <Tile {...t} />
+                      </Grid>
+                    )
+                  })}
+                </Grid>
+              </Grid>
+            </Grid>
           </Container>
         </Grid>
       </Grid>
     </Box>
   )
+}
+
+export async function getStaticProps(): Promise<GetStaticPropsResult<HomePageProps>> {
+
+  const query = gql`
+    query ActiveTiles {
+      tiles {
+        title
+        description
+        link
+        image
+      }
+    }  
+  `;
+
+  const data = await request(process.env.NEXT_PUBLIC_GRAPHCMS_URL || '', query);
+
+  return {
+    props: {
+      tiles: data.tiles
+    }, // will be passed to the page component as props
+  }
 }
 
 export default Home

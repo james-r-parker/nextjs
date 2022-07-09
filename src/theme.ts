@@ -6,6 +6,9 @@ const theme = createTheme({
       default: "#F5F5F5"
     },
     primary: {
+      main: "#005CB9"
+    },
+    secondary: {
       main: "#027800"
     }
   },
@@ -17,8 +20,12 @@ const theme = createTheme({
       fontSize: "4.4rem",
       fontWeight: 600
     },
+    h2: {
+      fontSize: "2.8rem",
+      fontWeight: 600
+    },
     subtitle1: {
-      fontSize: "2rem",
+      fontSize: "1.8rem",
       fontWeight: 600,
       lineHeight: "2.5rem"
     },
@@ -43,14 +50,26 @@ const theme = createTheme({
         root: {
           fontWeight: 600,
           textDecoration: "none",
-          fontSize: "0.9em"
+          fontSize: "0.9em",
+          color: "#15537D"
         }
       }
     },
-    MuiTextField: {
-      styleOverrides: {
-        root: {
-          
+    MuiButton : {
+      styleOverrides : {
+        contained : {
+          height : "54px",
+          textTransform : "none",
+          fontSize : "1.2rem"
+        }
+      }
+    },
+    MuiPaper : {
+      styleOverrides : {
+        root : {
+          borderRadius: "20px",
+          border: "solid 1px #CBD9E0",
+          boxShadow : "none"
         }
       }
     }

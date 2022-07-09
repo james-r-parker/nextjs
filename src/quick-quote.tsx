@@ -115,7 +115,7 @@ function QuickQuote() {
                             </Grid>
                             <Grid item flexGrow={1}>
                                 <Button 
-                                    color='primary' 
+                                    color='secondary' 
                                     variant='contained'
                                     fullWidth
                                     >
