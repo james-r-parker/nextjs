@@ -16,3 +16,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     </ThemeProvider>
   )
 }
+
+export function reportWebVitals(metric: any) {
+  console.log(metric)
+}
