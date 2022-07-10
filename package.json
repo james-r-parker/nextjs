@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next export",
+    "build": "next build && next export && copy-assets",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "copy-assets": "cp -rv resources out/"
   },
   "dependencies": {
     "@emotion/cache": "^11.9.3",
@@ -23,6 +24,7 @@
     "react-dom": "18.2.0"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^3.14.1",
     "@types/node": "18.0.3",
     "@types/react": "18.0.15",
     "@types/react-dom": "18.0.6",
