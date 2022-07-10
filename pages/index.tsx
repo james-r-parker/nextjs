@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Paper, Typography, Link } from '@mui/material';
+import { Box, Container, Grid, Paper, Typography, Link, styled } from '@mui/material';
 import type { GetStaticPropsResult } from 'next'
 import { request, gql } from 'graphql-request';
 import QuickQuote from '../src/quick-quote';
@@ -15,11 +15,11 @@ interface ICardProps {
 
 const Card: React.FC<ICardProps> = (props) => {
   return (
-    <Paper style={{ backgroundColor: props.backgroundColour, height : "100%" }}>
+    <Paper style={{ backgroundColor: props.backgroundColour, height: "100%" }}>
       <Box p={3}>
-        <Typography variant='subtitle1' style={{ color: props.colour, minHeight: "75px" }} mb={2}>{props.title}</Typography>
+        <Typography variant='subtitle1' style={{ color: props.colour }} mb={2}>{props.title}</Typography>
         <Typography style={{ color: props.colour, minHeight: "50px" }}>{props.description}</Typography>
-        <img src={props.image} style={{ margin: "20px auto", display: "block", height : "60px", maxWidth : "100%" }} />
+        <img src={props.image} style={{ margin: "20px auto", display: "block", height: "60px", maxWidth: "100%" }} />
         <Link href={props.link} style={{ color: props.colour }}>{props.linkText}</Link>
       </Box>
     </Paper>
@@ -38,12 +38,25 @@ const Tile: React.FC<ITileProp> = (props) => {
     <Paper style={{ background: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('${props.image}')`, backgroundSize: "cover" }}>
       <Box p={4}>
         <Typography variant='subtitle1' style={{ color: "#fff" }} mb={2}>{props.title}</Typography>
-        <Typography style={{ color: "#fff" }}>{props.description}</Typography>
+        <Typography style={{ color: "#fff" }} component="p" mb={4}>{props.description}</Typography>
         <Link href={props.link} style={{ color: "#fff" }}>Read more</Link>
       </Box>
     </Paper>
   )
 }
+
+const CourierLogo = styled('img')(({ theme }) => ({
+  height: 30,
+  [theme.breakpoints.up("sm")]: {
+    height: 35,
+  },
+  [theme.breakpoints.up("md")]: {
+    height: 40,
+  },
+  [theme.breakpoints.up("lg")]: {
+    height: 60,
+  }
+}));
 
 interface HomePageProps {
   tiles: {
@@ -88,7 +101,7 @@ const Home: React.FC<HomePageProps> = ({ tiles }) => {
                       <Grid item key={c}>
                         <Paper>
                           <Box p={3}>
-                            <img src={`/${c}.svg`} alt={c} height={60} />
+                            <CourierLogo src={`/${c}.svg`} alt={c} />
                           </Box>
                         </Paper>
                       </Grid>
@@ -138,7 +151,7 @@ const Home: React.FC<HomePageProps> = ({ tiles }) => {
                 <Grid container spacing={2}>
                   {tiles.map((t) => {
                     return (
-                      <Grid item key={t.title}  md={6} xs={12} flexGrow={1}>
+                      <Grid item key={t.title} md={6} xs={12} flexGrow={1}>
                         <Tile {...t} />
                       </Grid>
                     )

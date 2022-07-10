@@ -17,17 +17,54 @@ const theme = createTheme({
       color: "#15537D"
     },
     h1: {
-      fontSize: "4.4rem",
-      fontWeight: 600
+      fontSize: "2.2rem",
+      fontWeight: 600,
+      "@media screen and (min-width: 600px)": {
+        fontSize: "4.4rem",
+        fontWeight: 600,
+      }
     },
     h2: {
-      fontSize: "2.8rem",
-      fontWeight: 600
+      fontSize: "2rem",
+      fontWeight: 600,
+      "@media screen and (min-width: 600px)": {
+        fontSize: "2.8rem",
+        fontWeight: 600,
+      }
+    },
+    h3: {
+      fontSize: "2.0rem",
+      fontWeight: 600,
+      "@media screen and (min-width: 600px)": {
+        fontSize: "2.0rem",
+        fontWeight: 600,
+      }
+    },
+    h4: {
+      fontSize: "1.6rem",
+      fontWeight: 600,
+      "@media screen and (min-width: 600px)": {
+        fontSize: "1.6rem",
+        fontWeight: 600,
+      }
+    },
+    h5: {
+      fontSize: "1.3rem",
+      fontWeight: 600,
+      "@media screen and (min-width: 600px)": {
+        fontSize: "1.3rem",
+        fontWeight: 600,
+      }
     },
     subtitle1: {
-      fontSize: "1.8rem",
+      fontSize: "1.1rem",
       fontWeight: 600,
-      lineHeight: "2.5rem"
+      lineHeight: "1.3rem",
+      "@media screen and (min-width: 600px)": {
+        fontSize: "1.8rem",
+        fontWeight: 600,
+        lineHeight: "2.5rem",
+      }
     },
     fontFamily: [
       'Plus Jakarta Sans',
@@ -62,7 +99,8 @@ const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         contained: {
-          height: "54px",
+          height: "52px",
+          boxShadow: "none",
           textTransform: "none",
           fontSize: "1.2rem"
         }
@@ -77,15 +115,29 @@ const theme = createTheme({
         }
       }
     },
-    MuiTextField: {
+    MuiFormControl: {
       styleOverrides: {
         root: {
           "& .MuiOutlinedInput-root": {
             borderRadius: "10px",
+            "&.Mui-disabled": {
+              "& .MuiOutlinedInput-input": {
+                textFillColor: "rgba(0, 0, 0, 1)",
+                cursor: "pointer"
+              }
+            },
           },
-          "& .MuiInputLabel-shrink" : {
-            color : "#005CB9"
+          "& .MuiInputLabel-shrink": {
+            color: "#005CB9"
           }
+        }
+      }
+    },
+    MuiDrawer: {
+      styleOverrides: {
+        paper: {
+          border: "none",
+          borderRadius: 0
         }
       }
     }

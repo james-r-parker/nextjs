@@ -6,9 +6,6 @@ function MyDocument({ Component, pageProps }: AppProps) {
   return (
     <Html lang="en">
       <Head>
-
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
         <meta name="description" content="Get the best rates on parcel delivery from Parcel2Go. Send a parcel from just £1.95 exc VAT, and compare parcel delivery quotes from cheap UK courier services! Book now!" />
         <title>Parcel Delivery &amp; Courier Services | Send a Parcel | Parcel2Go</title>
         <link rel="canonical" href="https://www.parcel2go.com/" />
@@ -30,7 +27,7 @@ function MyDocument({ Component, pageProps }: AppProps) {
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin={'anonymous '} />
-        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600&display=optional" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600&display=swap" rel="stylesheet" />
         <script type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
