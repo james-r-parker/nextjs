@@ -1,4 +1,4 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme, responsiveFontSizes } from '@mui/material/styles';
 
 const theme = createTheme({
   palette: {
@@ -41,7 +41,11 @@ const theme = createTheme({
           backgroundColor: "white",
           boxShadow: "none",
           borderBottom: "solid 1px #EBEBEB",
-          marginBottom: 40
+          marginBottom: 40,
+          borderLeft: "none",
+          borderRight: "none",
+          borderTop: "none",
+          borderRadius: 0
         }
       }
     },
@@ -55,21 +59,33 @@ const theme = createTheme({
         }
       }
     },
-    MuiButton : {
-      styleOverrides : {
-        contained : {
-          height : "54px",
-          textTransform : "none",
-          fontSize : "1.2rem"
+    MuiButton: {
+      styleOverrides: {
+        contained: {
+          height: "54px",
+          textTransform: "none",
+          fontSize: "1.2rem"
         }
       }
     },
-    MuiPaper : {
-      styleOverrides : {
-        root : {
+    MuiPaper: {
+      styleOverrides: {
+        elevation: {
           borderRadius: "20px",
           border: "solid 1px #CBD9E0",
-          boxShadow : "none"
+          boxShadow: "none"
+        }
+      }
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          "& .MuiOutlinedInput-root": {
+            borderRadius: "10px",
+          },
+          "& .MuiInputLabel-shrink" : {
+            color : "#005CB9"
+          }
         }
       }
     }

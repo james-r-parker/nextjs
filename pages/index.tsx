@@ -15,11 +15,11 @@ interface ICardProps {
 
 const Card: React.FC<ICardProps> = (props) => {
   return (
-    <Paper style={{ backgroundColor: props.backgroundColour }}>
+    <Paper style={{ backgroundColor: props.backgroundColour, height : "100%" }}>
       <Box p={3}>
         <Typography variant='subtitle1' style={{ color: props.colour, minHeight: "75px" }} mb={2}>{props.title}</Typography>
         <Typography style={{ color: props.colour, minHeight: "50px" }}>{props.description}</Typography>
-        <img src={props.image} style={{ margin: "20px auto", display: "block", height: "100px" }} />
+        <img src={props.image} style={{ margin: "20px auto", display: "block", height : "60px", maxWidth : "100%" }} />
         <Link href={props.link} style={{ color: props.colour }}>{props.linkText}</Link>
       </Box>
     </Paper>
@@ -98,35 +98,35 @@ const Home: React.FC<HomePageProps> = ({ tiles }) => {
               </Grid>
               <Grid item>
                 <Grid container spacing={3}>
-                  <Grid item md={4}>
+                  <Grid item md={4} xs={12}>
                     <Card
                       title="We're rated 4 out of 5 on Trustpilot"
                       description="Based on over 100,000 independant and verified reviews."
-                      link=''
+                      link='https://www.trustpilot.com/review/www.parcel2go.com'
                       linkText='Read reviews on Trustpilot'
                       backgroundColour='#000032'
                       colour='#fff'
                       image='/trustpilot.png'
                     />
                   </Grid>
-                  <Grid item md={4}>
+                  <Grid item md={4} xs={12}>
                     <Card
                       title="We're proud to be an official Google Partner"
                       description="We've been a Google Partner for over 10 years."
-                      link=''
+                      link='https://www.google.com/partners/work-with-a-partner/'
                       linkText='What does this mean'
                       backgroundColour='#E2EEF6'
                       image='/google-partner.png'
                     />
                   </Grid>
-                  <Grid item md={4}>
+                  <Grid item md={4} xs={12}>
                     <Card
                       title='Already have an account'
                       description='Signing in makes life a lot easier for you while using our services.'
                       link='https://www.parcel2go.com/login'
                       linkText='Sign in to your account'
                       backgroundColour='#fff'
-                      image=''
+                      image='/account.png'
                     />
                   </Grid>
                 </Grid>
@@ -138,7 +138,7 @@ const Home: React.FC<HomePageProps> = ({ tiles }) => {
                 <Grid container spacing={2}>
                   {tiles.map((t) => {
                     return (
-                      <Grid item key={t.title} xs={6} flexGrow={1}>
+                      <Grid item key={t.title}  md={6} xs={12} flexGrow={1}>
                         <Tile {...t} />
                       </Grid>
                     )
