@@ -64,10 +64,18 @@ interface HomePageProps {
     image: string,
     description: string,
     link: string
-  }[]
+  }[],
+  page: {
+    title: string,
+    subtitle: string,
+    sections: {
+      title: string,
+      slug: string
+    }[]
+  },
 }
 
-const Home: React.FC<HomePageProps> = ({ tiles }) => {
+const Home: React.FC<HomePageProps> = ({ tiles, page }) => {
   return (
     <Box>
       <Grid container direction={'column'} spacing={2}>
@@ -76,10 +84,10 @@ const Home: React.FC<HomePageProps> = ({ tiles }) => {
             <Container maxWidth={'xl'}>
               <Grid container direction={'column'} spacing={5}>
                 <Grid item>
-                  <Typography variant='h1' component="h1">Compare the cheapest parcel delivery prices in the UK</Typography>
+                  <Typography variant='h1' component="h1">{page.title}</Typography>
                 </Grid>
                 <Grid item>
-                  <Typography variant='subtitle1' component="h2">We&rsquo;ve helped people find the cheapest prices for over 83 million parcels since 2001. Send parcels from as little as £1.95 plus VAT.</Typography>
+                  <Typography variant='subtitle1' component="h2">{page.subtitle}</Typography>
                 </Grid>
                 <Grid item>
                   <QuickQuote />
@@ -92,7 +100,7 @@ const Home: React.FC<HomePageProps> = ({ tiles }) => {
           <Container maxWidth={'xl'}>
             <Grid container direction={'column'} spacing={4}>
               <Grid item>
-                <Typography sx={{ marginTop: "20px" }} variant='h2' component="h3">Comparing prices from the UK's most trusted parcel couriers</Typography>
+                <Typography sx={{ marginTop: "20px" }} variant='h2' component="h3">{page?.sections?.filter(x => x.slug === 'compare')[0]?.title || ''}</Typography>
               </Grid>
               <Grid item>
                 <Grid container spacing={3}>
@@ -145,7 +153,7 @@ const Home: React.FC<HomePageProps> = ({ tiles }) => {
                 </Grid>
               </Grid>
               <Grid item>
-                <Typography sx={{ marginTop: "20px" }} variant='h2' component="h3">Delivering more than just parcels</Typography>
+                <Typography sx={{ marginTop: "20px" }} variant='h2' component="h3">{page?.sections?.filter(x => x.slug === 'deliver')[0]?.title || ''}</Typography>
               </Grid>
               <Grid item>
                 <Grid container spacing={2}>
@@ -168,7 +176,7 @@ const Home: React.FC<HomePageProps> = ({ tiles }) => {
 
 export async function getStaticProps(): Promise<GetStaticPropsResult<HomePageProps>> {
 
-  const query = gql`
+  const tileQuery = gql`
     query ActiveTiles {
       tiles {
         title
@@ -179,11 +187,29 @@ export async function getStaticProps(): Promise<GetStaticPropsResult<HomePagePro
     }  
   `;
 
-  const data = await request(process.env.NEXT_PUBLIC_GRAPHCMS_URL || '', query);
+  const tileResponse = await request(process.env.NEXT_PUBLIC_GRAPHCMS_URL || '', tileQuery);
+
+  const pageQuery = gql`
+    query PageQuery {
+      pages(where: {slug: "home"}) {
+        title
+        subtitle
+        sections {
+          ... on Section {
+            title
+            slug
+          }
+        }
+      }
+    }  
+  `;
+
+  const pageResponse = await request(process.env.NEXT_PUBLIC_GRAPHCMS_URL || '', pageQuery);
 
   return {
     props: {
-      tiles: data.tiles
+      tiles: tileResponse.tiles,
+      page: pageResponse.pages[0]
     }, // will be passed to the page component as props
   }
 }
